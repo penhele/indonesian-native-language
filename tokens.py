@@ -1,15 +1,16 @@
 from enum import Enum
 
+
 class TokenType(Enum):
     # Kata kunci
-    GUE_PUNYA = "gue_punya"
-    KALO = "kalo"
-    KALO_KAGAK = "kalo_kagak"
-    SELAMA = "selama"
-    DARI = "dari"
-    SAMPE = "sampe"
-    TULIS = "tulis"
-    BACA = "baca"
+    GUE_PUNYA = "gue_punya"  # deklarasi variabel
+    KALO = "kalo"  # if
+    KALO_KAGAK = "kalo_kagak"  # else
+    SELAMA = "selama"  # while
+    DARI = "dari"  # for in range
+    SAMPE = "sampe"  # to
+    TULIS = "tulis"  # print
+    BACA = "baca"  # input
     
     # Tipe data
     ANGKA = "angka"
@@ -21,6 +22,7 @@ class TokenType(Enum):
     KURANG = "-"
     KALI = "*"
     BAGI = "/"
+    SAMA = "="
     
     # Perbandingan
     SAMA_DENGAN = "sama dengan"
@@ -40,7 +42,6 @@ class TokenType(Enum):
     INDENT = "indent"
     DEDENT = "dedent"
     EOF = "eof"
-
 
 class Token:
     def __init__(self, type, value, line=0):
