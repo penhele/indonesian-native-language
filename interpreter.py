@@ -53,7 +53,7 @@ class Interpreter:
             self.advance()
     
     def declaration(self):
-        self.advance()  # skip 'gue punya'
+        self.advance()  
         
         if self.current_token().type == TokenType.IDENTIFIER:
             var_name = self.current_token().value
@@ -78,13 +78,13 @@ class Interpreter:
         self.skip_newlines()
     
     def print_statement(self):
-        self.advance()  # skip 'tulis'
+        self.advance()  
         value = self.expression()
         print(value)
         self.skip_newlines()
     
     def if_statement(self):
-        self.advance()  # skip 'kalo'
+        self.advance()  
         condition = self.condition()
         
         self.skip_newlines()
@@ -99,14 +99,12 @@ class Interpreter:
                     break
                 self.statement()
         else:
-            # Skip if block
             while self.current_token().type not in [TokenType.DEDENT, TokenType.KALO_KAGAK, TokenType.EOF]:
                 self.advance()
         
         if self.current_token().type == TokenType.DEDENT:
             self.advance()
         
-        # Handle else
         if self.current_token().type == TokenType.KALO_KAGAK:
             self.advance()
             self.skip_newlines()
@@ -128,13 +126,12 @@ class Interpreter:
                 self.advance()
     
     def while_statement(self):
-        self.advance()  # skip 'selama'
+        self.advance() 
         condition_start = self.pos
         
         while True:
             self.pos = condition_start
             if not self.condition():
-                # Skip while block
                 while self.current_token().type not in [TokenType.DEDENT, TokenType.EOF]:
                     self.advance()
                 if self.current_token().type == TokenType.DEDENT:
@@ -147,7 +144,6 @@ class Interpreter:
             if self.current_token().type == TokenType.INDENT:
                 self.advance()
             
-            # Execute block
             while self.current_token().type not in [TokenType.DEDENT, TokenType.EOF]:
                 self.skip_newlines()
                 if self.current_token().type == TokenType.DEDENT:
@@ -158,7 +154,7 @@ class Interpreter:
                 self.advance()
     
     def for_statement(self):
-        self.advance()  # skip 'dari'
+        self.advance() 
         
         if self.current_token().type != TokenType.IDENTIFIER:
             raise Exception("Expected variable name")
@@ -199,7 +195,6 @@ class Interpreter:
                     break
                 self.statement()
         
-        # Skip to end of block
         while self.current_token().type not in [TokenType.DEDENT, TokenType.EOF]:
             self.advance()
         

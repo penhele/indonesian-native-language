@@ -16,10 +16,8 @@ class Lexer:
             if not line.strip():
                 continue
             
-            # Hitung indentasi
             indent = len(line) - len(line.lstrip())
             
-            # Proses indent/dedent
             if indent > self.indent_stack[-1]:
                 self.indent_stack.append(indent)
                 self.tokens.append(Token(TokenType.INDENT, indent, line_num))
@@ -28,11 +26,9 @@ class Lexer:
                     self.indent_stack.pop()
                     self.tokens.append(Token(TokenType.DEDENT, indent, line_num))
             
-            # Tokenize line
             self.tokenize_line(line.strip(), line_num)
             self.tokens.append(Token(TokenType.NEWLINE, '\n', line_num))
         
-        # Cleanup dedents
         while len(self.indent_stack) > 1:
             self.indent_stack.pop()
             self.tokens.append(Token(TokenType.DEDENT, 0, line_num))
@@ -43,12 +39,10 @@ class Lexer:
     def tokenize_line(self, line, line_num):
         i = 0
         while i < len(line):
-            # Skip whitespace
             if line[i].isspace():
                 i += 1
                 continue
             
-            # String
             if line[i] in '"\'':
                 quote = line[i]
                 i += 1
@@ -59,7 +53,6 @@ class Lexer:
                 i += 1
                 continue
             
-            # Numbers
             if line[i].isdigit():
                 start = i
                 while i < len(line) and (line[i].isdigit() or line[i] == '.'):
@@ -69,7 +62,6 @@ class Lexer:
                 self.tokens.append(Token(TokenType.NUMBER, value, line_num))
                 continue
             
-            # Operators
             if line[i] in '+-*/=':
                 if line[i] == '+':
                     token_type = TokenType.TAMBAH
@@ -85,14 +77,12 @@ class Lexer:
                 i += 1
                 continue
             
-            # Keywords dan identifiers
             start = i
             while i < len(line) and (line[i].isalnum() or line[i] == '_'):
                 i += 1
             
             word = line[start:i]
             
-            # Cek multi-word keywords
             remaining = line[i:].lstrip()
             
             if word == "gue" and remaining.startswith("punya"):

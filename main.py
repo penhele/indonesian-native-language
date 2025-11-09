@@ -67,7 +67,6 @@ selama x lebih kecil dari 3
         if line:
             code_buffer.append(line)
         elif code_buffer:
-            # Empty line with code buffer means execute
             code = '\n'.join(code_buffer)
             print("\n--- HASIL EKSEKUSI ---")
             interpreter = Interpreter()
