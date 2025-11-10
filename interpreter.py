@@ -4,8 +4,8 @@ class Interpreter:
 
     def evaluate_expression(self, expr):
     
-        expr = expr.replace("nambah", "+")
-        expr = expr.replace("kureng", "-")
+        expr = expr.replace("tambah", "+")
+        expr = expr.replace("kurang", "-")
         expr = expr.replace("kali", "*")
         expr = expr.replace("bagi", "/")
 
